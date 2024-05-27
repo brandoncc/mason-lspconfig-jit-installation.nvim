@@ -28,7 +28,6 @@ requests adding more examples.
   opts = {
     servers = {
       "lua_ls",
-      "stylua",
     },
   },
 }
