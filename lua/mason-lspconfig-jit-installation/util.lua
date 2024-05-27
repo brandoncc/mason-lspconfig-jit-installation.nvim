@@ -54,6 +54,16 @@ local function find_items_in_list1_not_in_list2(list1, list2)
   return items_not_in_list
 end
 
+local function find_invalid_servers(servers)
+  local is_mason_installed, mason_lspconfig = pcall(require, "mason-lspconfig")
+
+  if not is_mason_installed then
+    return
+  end
+
+  return find_items_in_list1_not_in_list2(servers, mason_lspconfig.get_available_servers())
+end
+
 local function install_servers(servers)
   local mason_identifiers = convert_servers_to_mason_identifiers(servers)
   local server_list = table.concat(mason_identifiers, " ")
@@ -88,5 +98,6 @@ end
 
 return {
   create_callback = create_callback,
+  find_invalid_servers = find_invalid_servers,
   formatted_message = formatted_message,
 }
