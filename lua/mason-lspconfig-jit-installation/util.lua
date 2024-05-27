@@ -1,5 +1,17 @@
 M = {}
 
+local function convert_servers_to_mason_identifiers(servers)
+  local mappings_available, mappings = pcall(require, "mason-lspconfig.mappings.server")
+
+  if not mappings_available then
+    error("unable to load mason-lspconfig.mappings.server")
+  end
+
+  return vim.tbl_map(function(server)
+    return mappings.lspconfig_to_package[server]
+  end, servers)
+end
+
 local function list_intersection(list1, list2)
   local counts = {}
   local intersection = {}
@@ -41,9 +53,10 @@ local function find_items_in_list1_not_in_list2(list1, list2)
 end
 
 local function install_servers(servers)
-  local server_list = table.concat(servers, " ")
+  local mason_identifiers = convert_servers_to_mason_identifiers(servers)
+  local server_list = table.concat(mason_identifiers, " ")
 
-  vim.cmd("LspInstall " .. server_list)
+  vim.cmd("MasonInstall " .. server_list)
 end
 
 -- The original code and idea came from heygarrett, here: https://github.com/williamboman/mason-lspconfig.nvim/issues/100#issuecomment-1371523636
