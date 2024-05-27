@@ -12,6 +12,13 @@ The plugin expects you to provide a specific a list of servers you would like
 to install when necessary. If you do not provide this list, initialization will
 no-op.
 
+Servers should be specified using the names in the [lspconfig configurations
+file](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md).
+Alternatively, the [server mappings in
+mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/mappings/server.lua)
+can be used as a source. The valid names are the keys in the
+`lspconfig_to_package` table.
+
 I use lazy.nvim, so that is the example I'm adding. I will happily accept pull
 requests adding more examples.
 
