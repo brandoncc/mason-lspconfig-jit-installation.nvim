@@ -1,10 +1,12 @@
-M = {}
+local formatted_message = function(message)
+  return "[mason-lspconfig-jit-installation] " .. message
+end
 
 local function convert_servers_to_mason_identifiers(servers)
   local mappings_available, mappings = pcall(require, "mason-lspconfig.mappings.server")
 
   if not mappings_available then
-    error("unable to load mason-lspconfig.mappings.server")
+    error(formatted_message("Unable to load mason-lspconfig.mappings.server"))
   end
 
   return vim.tbl_map(function(server)
@@ -60,7 +62,7 @@ local function install_servers(servers)
 end
 
 -- The original code and idea came from heygarrett, here: https://github.com/williamboman/mason-lspconfig.nvim/issues/100#issuecomment-1371523636
-function M.create_callback(servers)
+local function create_callback(servers)
   return function(event)
     -- "" (empty) is a "normal buffer", see `:h buftype` for more information
     if vim.bo[event.buf].buftype ~= "" then
@@ -84,4 +86,7 @@ function M.create_callback(servers)
   end
 end
 
-return M
+return {
+  create_callback = create_callback,
+  formatted_message = formatted_message,
+}
