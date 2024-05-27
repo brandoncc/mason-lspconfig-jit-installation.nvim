@@ -4,6 +4,8 @@ This plugin provides "just in time" installation of language servers. This is
 just a fancy way of saying "language servers are not installed until you are
 ready to use them".
 
+https://github.com/brandoncc/mason-lspconfig-jit-installation.nvim/assets/543973/c253c97d-669f-4c40-b4c3-6ace324ad5b4
+
 ## Installation and setup
 
 The plugin expects you to provide a specific a list of servers you would like
